@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.1.2/caman.full.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+<meta charset=utf-8 />
+<title>CSS filters</title>
+<style>
+    :root{
+    --purple-color: #1b416d;
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    max-height: 100%;
+    height: 100%; 
+    background: linear-gradient(270deg, #e6e55b, #e69c5b, #f15e38, #50c261, #50b5c2, #505ac2, #c250b7, #c25066);
+    background-size: 1600% 1600%;
+    animation: AnimationName 46s ease infinite;
+}
+@keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+#file-form {
+    width: 40%;
+    margin: 0 auto;
+}
+#file-form .btn:hover {
+    box-shadow: inset 0 0 15px white;
+}
+#file-form .btn:active {
+    box-shadow: inset 0 0 15px black;
+}
+.wrapper {
+    margin: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-areas: 
+        'reset canvas download'
+        'cont-bri canvas sat-vib';
+}
+#imageCnv {
+    width: 100%;
+    background: linear-gradient(#d0d0d0, #f0f0f0);
+    border-radius: 20px;
+    box-shadow: 2px 10px 10px rgba(0, 0, 0, 0.5)
+}
+.canvas {
+    width: 95%;
+    margin: 0 auto;
+    grid-area: canvas;
+}
+.reset{
+    grid-area: reset;
+}
+.download {
+    grid-area: download;
+}
+.cont-bri {
+    grid-column: span 1;
+    grid-area: cont-bri;
+}
+.sat-vib {
+    grid-area: sat-vib;
+    grid-column: span 1;
+
+}
+input[type=range]::-webkit-slider-thumb {
+    background-color: var(--purple-color);
+}
+input[type=range]::-moz-range-thumb {
+    background-color: var(--purple-color);
+}
+  input[type=range]::-ms-thumb {
+    background-color: var(--purple-color);
+}
+input[type=range] + .thumb {
+    background-color: var(--purple-color);
+}
+input[type=range] + .thumb.active .value {
+    font-size: 1.1rem;
+    height: 40px;
+    width: 40px;
+    margin: 0 0 0 -10px;
+    top: -25px;
+}
+button {
+    width: 150px;
+    margin-bottom: 10px;
+}
+p {
+    font-size: 1.2rem;
+}
+p span {
+    font-size: 1.3rem;
+    color: var(--purple-color);
+}
+@media screen and (max-width: 450px) {
+  .wrapper  {
+    display: block;
+  }
+}
+@media screen and (max-width: 992px) {
+    .wrapper {
+        width: 90%;
+        margin: 0 auto;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+        'canvas canvas'
+        'reset download'
+        'cont-bri sat-vib';
+    }
+    .canvas {
+        width: 100%;
+    }
+    .download, .reset {
+        margin: 10px 0;
+    }
+}
+</style>
+</head>
+<body>
+  <nav>
+    <div class="nav-wrapper black darken-2">
+        <a href="#" class="brand-logo center">IMAGE EDITOR</a>
+    </div>
+</nav>  
+
+<form id="file-form">
+    <div class="file-field input-field">
+          <div class="btn black darken-2">
+            <span>File</span>
+            <input type="file" id="upload">
+        </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="Upload Image">
+          </div>
+        </div>
+      </form>
+
+<div class="wrapper">
+        <div class="canvas">
+                <canvas id="imageCnv">
+                </canvas>
+            </div> <!-- canvas -->
+
+            <div class="reset center-align">
+                    <button class="btn waves-effect waves-light blue darken-2" id="reset-btn">Reset</button>
+            </div>
+
+    <div class="row center-align cont-bri">
+            <div class="col s12 m12 brightness">
+                    <p>Brightness <span class="span">0</span></p>
+                    <form>
+                        <p class="range-field">
+                            <input type="range" id="brightness" min="-50" max="50" />
+                        </p>
+                    </form>
+                </div>
+            <div class="col s12 m12 ">
+                <p>Noise <span class="span">0</span></p>
+                <form>
+                    <p class="range-field ">
+                        <input type="range" id="noise" min="0" max="100" value="0"/> 
+                    </p>
+                </form>
+            </div>
+           
+            <div class="col s12 m12 sepia">
+                <p>Sepia <span class="span">0</span></p>
+                <form>
+                    <p class="range-field">
+                        <input type="range" id="sepia" min="0" max="100" value="0"/>
+                    </p>
+                </form>
+            </div>
+            <div class="col s12 m12">
+                    <button class="btn waves-effect waves-light red darken-2" id="love">Love</button>
+            </div>
+            <div class="col s12 m12">
+                    <button class="btn waves-effect waves-light orange lighten-2" id="sun-rise">Sun Rise</button>
+            </div>
+            <div class="col s12 m12">
+                <button class="btn waves-effect waves-light grey darken-2" id="old-paper">Old Paper</button>
+            </div>
+            <div class="col s12 m12">
+              <button class="btn waves-effect waves-light green darken-2" id="posterize">POSTERIZE</button>
+          </div>
+          <div class="col s12 m12">
+            <button class="btn waves-effect waves-light blue lighten-2" id="edge">EDGE ENHANCE</button>
+        </div>
+        </div> <!-- row -->
+
+        <div class="download center-align">
+            <button class="btn waves-effect waves-light deep-orange darken-4" id="download-btn">Download</button>
+        </div> 
+
+        <div class="row center-align sat-vib">
+                <div class="col s12 m12 saturation">
+                    <p>Saturation <span class="span">0</span></p>
+                    <form>
+                        <p class="range-field ">
+                            <input type="range" class="" id="saturation" min="-100" max="100" />
+                        </p>
+                    </form>
+                </div>
+                <div class="col s12 m12 vibrance">
+                    <p>Vibrance <span class="span">0</span></p>
+                    <form>
+                        <p class="range-field">
+                            <input type="range" id="vibrance" min="-100" max="100" />
+                        </p>
+                    </form>
+                </div>
+                <div class="col s12 m12 hue">
+                    <p>Hue <span class="span">0</span></p>
+                    <form>
+                        <p class="range-field">
+                            <input type="range" id="hue" min="0" max="100" value="0" />
+                        </p>
+                    </form>
+                </div>
+                <div class="col s12 m12">
+                    <button class="btn waves-effect waves-light orange darken-2" id="orange-peel">Orange Peel</button>
+                </div>
+                
+                <div class="col s12 m12">
+                    <button class="btn waves-effect waves-light pink lighten-2" id="lomo">Lomo</button>
+                </div>
+                <div class="col s12 m12">
+                    <button class="btn waves-effect waves-light deep-purple darken-2" id="purple">Purple</button>
+                </div>
+                <div class="col s12 m12">
+                  <button class="btn waves-effect waves-light brown lighten-2" id="hdr">HDR EFFECT</button>
+              </div>
+              <div class="col s12 m12">
+                <button class="btn waves-effect waves-light yellow darken-2" id="cross">CROSS PROCESS</button>
+            </div>
+        </div> <!-- row -->
+    
+</div><!-- wrapper -->
+</body>
+<script>
+  const canvas = document.getElementById('imageCnv'),
+      fileForm = document.getElementById('file-form'),
+      uploadBtn = document.getElementById('upload'),
+      ctx = canvas.getContext("2d"),
+      ranges = document.querySelectorAll('input[type=range]'),
+      spans = document.querySelectorAll('.span'),
+      cols = document.querySelectorAll('.col'),
+      resetBtn = document.getElementById('reset-btn'),
+      downloadBtn = document.getElementById('download-btn');
+
+let img = new Image();
+let fileName = '';
+    
+uploadBtn.addEventListener('change', (e) => {
+    const file = document.getElementById('upload').files[0];
+
+    const reader = new FileReader();
+    if (file) {
+        fileName = file.name;
+        reader.readAsDataURL(file);
+    }
+
+    reader.addEventListener('load', () => {
+        img = new Image();
+        img.src = reader.result;
+        img.onload = function () {
+            canvas.width = img.width;   
+            canvas.height = img.height;   
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+            canvas.removeAttribute('data-caman-id');
+        }
+    }, false);
+    uploadBtn.value = '';
+    ranges.forEach(range => {
+        range.value = 0;
+    })
+    spans.forEach(span => {
+        span.innerHTML = 0;
+    })
+});
+
+ranges.forEach(range => {
+    
+    range.addEventListener('change', (x) => {
+        const noiseVal = document.getElementById('noise').value,
+              brightnessValue = document.getElementById('brightness').value,
+              saturationValue = document.getElementById('saturation').value,
+              vibranceValue = document.getElementById('vibrance').value,
+              hueValue = document.getElementById('hue').value,
+              sepiaValue = document.getElementById('sepia').value;
+
+        x.path[3].children[0].children[0].innerHTML = x.target.value;
+              
+
+        Caman('#imageCnv', img, function() {
+            this.revert(false);
+            this.noise(noiseVal).brightness(brightnessValue).saturation(saturationValue).vibrance(vibranceValue).hue(hueValue).sepia(sepiaValue).render();
+            });
+    });
+});
+
+cols.forEach(col => {
+    col.addEventListener('click', (c) => {
+        if (c.srcElement.id === 'love'){
+            Caman('#imageCnv', img, function() {
+                this.love().render();
+              });
+        } else if (c.srcElement.id === 'orange-peel') {
+            Caman('#imageCnv', img, function() {
+                this.orangePeel().render();
+              });
+        } else if (c.srcElement.id === 'old-paper') {
+            Caman('#imageCnv', img, function() {
+                this.pinhole();
+                this.noise(10);
+                this.orangePeel();
+                this.render();
+              });
+        } else if (c.srcElement.id === 'lomo') {
+            Caman('#imageCnv', img, function() {
+                this.lomo().render();
+              });
+        } else if (c.srcElement.id === 'sun-rise') {
+            Caman('#imageCnv', img, function() {
+                this.sunrise().render();
+              });
+        } else if (c.srcElement.id === 'purple') {
+            Caman('#imageCnv', img, function() {
+                this.newLayer(function () {
+                    return this.setBlendingMode('overlay').opacity(60).fillColor('#512da8').render();
+                  });
+              });
+        }
+        else if (c.srcElement.id === 'hdr') {
+            Caman('#imageCnv', img, function() {
+              this.contrast(10);
+              this.contrast(10);
+              this.jarques();
+              this.render();
+              });
+        }
+        else if (c.srcElement.id === 'posterize') {
+            Caman('#imageCnv', img, function() {
+              this.posterize(8, 8).render();
+              });
+        }
+        else if (c.srcElement.id === 'edge') {
+            Caman('#imageCnv', img, function() {
+              this.edgeEnhance().render();
+              });
+        }
+        else if (c.srcElement.id === 'cross') {
+            Caman('#imageCnv', img, function() {
+              this.crossProcess().render();
+              });
+        }
+    })
+});
+
+resetBtn.addEventListener('click', () => {
+    ranges.forEach(range => {
+        range.value = 0;
+    })
+    spans.forEach(span => {
+        span.innerHTML = 0;
+    })
+    Caman('#imageCnv', img, function() {
+        this.revert(false);
+        this.render();
+      });
+});
+
+
+downloadBtn.addEventListener("click", () => {
+    const fileExtension = fileName.slice(-4);
+  
+    let newFilename;
+  
+    if (fileExtension === ".jpg" || fileExtension === ".png") {
+      
+        newFilename = fileName.substring(0, fileName.length - 4) + "-edited-image.jpg";   
+    }
+  
+    download(canvas, newFilename);
+  });
+  
+  function download(canvas, filename) {
+    // Init event
+    if(filename != undefined){
+
+        let e;
+        
+        const link = document.createElement("a");
+        
+        
+        link.download = filename;
+        link.href = canvas.toDataURL("image/jpeg", 0.8);
+        
+        e = new MouseEvent("click");
+        
+        link.dispatchEvent(e);
+    }
+  }
+  
+</script>
+</html>
