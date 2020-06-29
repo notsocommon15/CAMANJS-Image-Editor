@@ -2,130 +2,12 @@
 <html>
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="style.css">
  <script src="https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.1.2/caman.full.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 <meta charset=utf-8 />
-<title>IMAGE EDITOR</title>
-<style>
-    :root{
-    --purple-color: #1b416d;
-}
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
+<title>CSS filters</title>
 
-body {
-    width: 100%;
-    max-height: 100%;
-    height: 100%; 
-    background: linear-gradient(270deg, #e6e55b, #e69c5b, #f15e38, #50c261, #50b5c2, #505ac2, #c250b7, #c25066);
-    background-size: 1600% 1600%;
-    animation: AnimationName 46s ease infinite;
-}
-@keyframes AnimationName {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
-#file-form {
-    width: 40%;
-    margin: 0 auto;
-}
-#file-form .btn:hover {
-    box-shadow: inset 0 0 15px white;
-}
-#file-form .btn:active {
-    box-shadow: inset 0 0 15px black;
-}
-.wrapper {
-    margin: 0 20px;
-    display: grid;
-    grid-template-columns: 1fr 5fr 1fr;
-    grid-template-areas: 
-        'reset canvas download'
-        'cont-bri canvas sat-vib';
-}
-#imageCnv {
-    width: 100%;
-    background: linear-gradient(#d0d0d0, #f0f0f0);
-    border-radius: 20px;
-    box-shadow: 2px 10px 10px rgba(0, 0, 0, 0.5)
-}
-.canvas {
-    width: 95%;
-    margin: 0 auto;
-    grid-area: canvas;
-}
-.reset{
-    grid-area: reset;
-}
-.download {
-    grid-area: download;
-}
-.cont-bri {
-    grid-column: span 1;
-    grid-area: cont-bri;
-}
-.sat-vib {
-    grid-area: sat-vib;
-    grid-column: span 1;
-
-}
-input[type=range]::-webkit-slider-thumb {
-    background-color: var(--purple-color);
-}
-input[type=range]::-moz-range-thumb {
-    background-color: var(--purple-color);
-}
-  input[type=range]::-ms-thumb {
-    background-color: var(--purple-color);
-}
-input[type=range] + .thumb {
-    background-color: var(--purple-color);
-}
-input[type=range] + .thumb.active .value {
-    font-size: 1.1rem;
-    height: 40px;
-    width: 40px;
-    margin: 0 0 0 -10px;
-    top: -25px;
-}
-button {
-    width: 150px;
-    margin-bottom: 10px;
-}
-p {
-    font-size: 1.2rem;
-}
-p span {
-    font-size: 1.3rem;
-    color: var(--purple-color);
-}
-@media screen and (max-width: 450px) {
-  .wrapper  {
-    display: block;
-  }
-}
-@media screen and (max-width: 992px) {
-    .wrapper {
-        width: 90%;
-        margin: 0 auto;
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas: 
-        'canvas canvas'
-        'reset download'
-        'cont-bri sat-vib';
-    }
-    .canvas {
-        width: 100%;
-    }
-    .download, .reset {
-        margin: 10px 0;
-    }
-}
-</style>
 </head>
 <body>
   <nav>
@@ -137,11 +19,11 @@ p span {
 <form id="file-form">
     <div class="file-field input-field">
           <div class="btn black darken-2">
-            <span>UPLOAD</span>
+            <span>UPLOAD AN IMAGE</span>
             <input type="file" id="upload">
         </div>
           <div class="file-path-wrapper">
-            <input class="file-path validate" type="text" placeholder="Choose An Image">
+            <input class="file-path validate" type="text" placeholder="CHOOSE AN IMAGE">
           </div>
         </div>
       </form>
@@ -150,7 +32,7 @@ p span {
         <div class="canvas">
                 <canvas id="imageCnv">
                 </canvas>
-            </div> <!-- canvas -->
+            </div>
 
             <div class="reset center-align">
                     <button class="btn waves-effect waves-light blue darken-2" id="reset-btn">Reset</button>
@@ -182,6 +64,22 @@ p span {
                     </p>
                 </form>
             </div>
+            <div class="col s12 m12 clip">
+                <p>Clip <span class="span">0</span></p>
+                <form>
+                    <p class="range-field">
+                        <input type="range" id="clip" min="0" max="100" value="0"/>
+                    </p>
+                </form>
+            </div>
+            <div class="col s12 m12 exposure">
+                <p>Exposure <span class="span">0</span></p>
+                <form>
+                    <p class="range-field ">
+                        <input type="range" class="" id="exposure" min="-100" max="100" />
+                    </p>
+                </form>
+            </div>
             <div class="col s12 m12">
                     <button class="btn waves-effect waves-light red darken-2" id="love">Love</button>
             </div>
@@ -196,6 +94,12 @@ p span {
           </div>
           <div class="col s12 m12">
             <button class="btn waves-effect waves-light blue lighten-2" id="edge">EDGE ENHANCE</button>
+        </div>
+        <div class="col s12 m12">
+            <button class="btn waves-effect waves-light green lighten-1" id="jarques">JARQUES</button>
+        </div>
+        <div class="col s12 m12">
+            <button class="btn waves-effect waves-light orange darken-4" id="majesty">MAJESTY</button>
         </div>
         </div> <!-- row -->
 
@@ -228,10 +132,25 @@ p span {
                         </p>
                     </form>
                 </div>
+                <div class="col s12 m12 sharpen">
+                    <p>Sharpen <span class="span">0</span></p>
+                    <form>
+                        <p class="range-field">
+                            <input type="range" id="sharpen" min="0" max="100" value="0" />
+                        </p>
+                    </form>
+                </div>
+                <div class="col s12 m12 gamma">
+                    <p>Gamma <span class="span">1</span></p>
+                    <form>
+                        <p class="range-field">
+                            <input type="range" id="gamma" min="1" max="100" value="0" />
+                        </p>
+                    </form>
+                </div>
                 <div class="col s12 m12">
                     <button class="btn waves-effect waves-light orange darken-2" id="orange-peel">Orange Peel</button>
                 </div>
-                
                 <div class="col s12 m12">
                     <button class="btn waves-effect waves-light pink lighten-2" id="lomo">Lomo</button>
                 </div>
@@ -244,12 +163,18 @@ p span {
               <div class="col s12 m12">
                 <button class="btn waves-effect waves-light yellow darken-2" id="cross">CROSS PROCESS</button>
             </div>
+            <div class="col s12 m12">
+                <button class="btn waves-effect waves-light blue-grey darken-2" id="hazy">HAZY</button>
+            </div>
+            <div class="col s12 m12">
+                <button class="btn waves-effect waves-light grey darken-3" id="nostalgia">NOSTALGIA</button>
+            </div>
         </div> <!-- row -->
     
 </div><!-- wrapper -->
 </body>
 <script>
-  const canvas = document.getElementById('imageCnv'),
+    const canvas = document.getElementById('imageCnv'),
       fileForm = document.getElementById('file-form'),
       uploadBtn = document.getElementById('upload'),
       ctx = canvas.getContext("2d"),
@@ -298,14 +223,18 @@ ranges.forEach(range => {
               saturationValue = document.getElementById('saturation').value,
               vibranceValue = document.getElementById('vibrance').value,
               hueValue = document.getElementById('hue').value,
-              sepiaValue = document.getElementById('sepia').value;
+              sepiaValue = document.getElementById('sepia').value,
+              sharpenValue = document.getElementById('sharpen').value,
+              clipValue = document.getElementById('clip').value,
+              gammaValue = document.getElementById('gamma').value,
+              exposureValue = document.getElementById('exposure').value;
 
         x.path[3].children[0].children[0].innerHTML = x.target.value;
               
 
         Caman('#imageCnv', img, function() {
             this.revert(false);
-            this.noise(noiseVal).brightness(brightnessValue).saturation(saturationValue).vibrance(vibranceValue).hue(hueValue).sepia(sepiaValue).render();
+            this.noise(noiseVal).brightness(brightnessValue).saturation(saturationValue).vibrance(vibranceValue).hue(hueValue).sepia(sepiaValue).sharpen(sharpenValue).clip(clipValue).gamma(gammaValue).exposure(exposureValue).render();
             });
     });
 });
@@ -365,6 +294,26 @@ cols.forEach(col => {
               this.crossProcess().render();
               });
         }
+        else if (c.srcElement.id === 'hazy') {
+            Caman('#imageCnv', img, function() {
+              this.hazyDays().render();
+              });
+        }
+        else if (c.srcElement.id === 'jarques') {
+            Caman('#imageCnv', img, function() {
+              this.jarques().render();
+              });
+        }
+        else if (c.srcElement.id === 'nostalgia') {
+            Caman('#imageCnv', img, function() {
+              this.nostalgia().render();
+              });
+        }
+        else if (c.srcElement.id === 'majesty') {
+            Caman('#imageCnv', img, function() {
+              this.herMajesty().render();
+              });
+        }
     })
 });
 
@@ -412,6 +361,5 @@ downloadBtn.addEventListener("click", () => {
         link.dispatchEvent(e);
     }
   }
-  
 </script>
 </html>
